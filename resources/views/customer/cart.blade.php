@@ -3,12 +3,18 @@
 @section('content')
 
 <div class="container">
+    <div class="row mt-5 mb-5">
+        <div class="col-lg-12 text-center">
+            <h2> Available Packages </h2>
+            <p>Find packages fit for your purpose here.</p>
+        </div>
+    </div>
     <table class="table table-borderless">
     <thead>
         <tr >
         <th scope="col" class="border">#</th>
         <th scope="col" class="border">Name</th>
-        <th scope="col" class="border">Quantity</th>
+        <th scope="col" class="border" width="15%">Quantity</th>
         <th scope="col" class="border">Price</th>
         </tr>
     </thead>
@@ -18,9 +24,12 @@
                 <th scope="row" class="border-bottom">1</th>
                 <td class="border-bottom">
                     <div class="media">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRlVa5KaiFAz-6dHSmlmtyI86pW9zGZjYO2Ftp-3ryktqRFTJci" class="mr-3" alt="..." width="128" height="128">
+                        <img src="{{ asset('media/thumbnails/'.$item->attributes['package']->image) }}" class="mr-3" alt="..." width="128" height="128">
                         <div class="media-body">
                             <h5 class="mt-0">{{ $item->name }}</h5>
+                            <p>
+                                {{ $item->attributes['package']->short_description }}
+                            </p>
                         </div>
                     </div>
                 </td>

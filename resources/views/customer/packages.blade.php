@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-    <div class="row">
+    <div class="row mt-5 mb-5">
         <div class="col-lg-12 text-center">
             <h2> Available Packages </h2>
             <p>Find packages fit for your purpose here.</p>
