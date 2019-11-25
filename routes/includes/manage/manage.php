@@ -34,6 +34,7 @@ Route::group([
         Route::group(['prefix' => 'order', 'as' => 'order:'], function() {
             Route::get('index', 'OrderController@index')->name('index');
             Route::get('{order}/show', 'OrderController@show')->name('show');
+            Route::get('{order}/edit', 'OrderController@show')->name('edit');
 
             Route::post('{order}/approve', 'OrderController@approve')->name('approve');
             Route::get('{order}/cancel', 'OrderController@cancel')->name('cancel');

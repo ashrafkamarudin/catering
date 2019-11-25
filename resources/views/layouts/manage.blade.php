@@ -31,10 +31,10 @@
 
     /* Column widths are based on these cells */
     .column-title {
-        width: 20%;
+        width: 25%;
     }
     .column-content {
-        width: 80%;
+        width: 75%;
     }
     </style>
 </head>
