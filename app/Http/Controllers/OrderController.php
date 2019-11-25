@@ -96,7 +96,7 @@ class OrderController extends Controller
             'price'         => $package->price,
             'quantity'      => 1,
             'attributes'    => [
-                'package'=> $package,
+                'package'=> $package->only(['image', 'short_description']),
             ]
         ]);
 

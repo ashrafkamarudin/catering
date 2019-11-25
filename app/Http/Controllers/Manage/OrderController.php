@@ -42,7 +42,7 @@ class OrderController extends Controller
     
     public function complete(Order $order)
     {
-        if (!collect(explode(',', $order->status))->contains('Approved')) {
+        if (collect(explode(',', $order->orderStatus))->contains('Approved') == false) {
             Session::flash('error', Sprintf('Order must be approve first.'));
             return back();
         }
