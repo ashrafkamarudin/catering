@@ -49,7 +49,7 @@ class OrderController extends Controller
             $items[] = [
                 'name'          => $item->name,
                 'description'   => '-',
-                'images'        => [env('APP_URL').'/media/thumbnails/'.$item->image],
+                'images'        => [env('APP_URL').'/media/thumbnails/'.$item->attributes['package']['image']],
                 'amount'        => $item->price . '00',
                 'currency'      => 'myr',
                 'quantity'      => $item->quantity,
