@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Manage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Order;
+use Session;
 
 class OrderController extends Controller
 {
@@ -22,7 +23,10 @@ class OrderController extends Controller
 
     public function show(order $order)
     {
-        return view('manage.order.show')->withOrder($order);
+        //dd(collect(explode(",",$order->orderStatus))->contains('Approved'));
+        return view('manage.order.show')
+                ->withOrder($order)
+                ->withStatuses(collect(explode(",",$order->orderStatus)));
     }
 
     public function approve(Order $order)
@@ -33,13 +37,23 @@ class OrderController extends Controller
 
         Session::flash('success', Sprintf('Order has been approved'));
 
-        return redirect()->route('manage:package:show', $order->id);
+        return redirect()->route('manage:order:show', $order->id);
     }
     
     public function complete(Order $order)
     {
-        Session::flash('success', Sprintf('Order is now complete.'));
+        $var = collect(explode(',', $order->status))->contains('Approved');
 
-        return redirect()->route('manage:package:show', $order->id);
+        if (collect(explode(',', $order->status))->contains('Approved')) {
+            $order->update([
+                'orderStatus'   => implode(",",array_merge([$order->orderStatus], ['Completed']))
+            ]);
+        
+            Session::flash('success', Sprintf('Order is now complete.'));
+        } else {
+            Session::flash('error', Sprintf('Order must be approve first.'));
+        }
+
+        return redirect()->route('manage:order:show', $order->id);
     }
 }

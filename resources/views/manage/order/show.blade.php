@@ -52,21 +52,23 @@
                             <td class="column-content">
                                 <a href="#" class="nav-link">
                                     <b>
-                                        @switch($order->orderStatus)
-                                            @case('Pending Approval')
-                                                <span class="badge badge-info p-2"> {{ $order->orderStatus }} </span>
-                                                @break
+                                        @foreach ($statuses as $status)
+                                            @switch($status)
+                                                @case('Pending Approval')
+                                                    <span class="badge badge-info p-2"> {{ $status }} </span>
+                                                    @break
 
-                                            @case('Approved')
-                                                <span class="badge badge-success p-2"> {{ $order->orderStatus }} </span>
-                                                @break
-                                            
-                                            @case('Completed') 
-                                                <span class="badge badge-primary p-2"> {{ $order->orderStatus }} </span>
-                                                @break
-                                            @default
-                                                <span>Something went wrong, please try again</span>
-                                        @endswitch
+                                                @case('Approved')
+                                                    <span class="badge badge-success p-2"> {{ $status }} </span>
+                                                    @break
+                                                
+                                                @case('Completed') 
+                                                    <span class="badge badge-primary p-2"> {{ $status }} </span>
+                                                    @break
+                                                @default
+                                                    <span>Something went wrong, please try again</span>
+                                            @endswitch
+                                        @endforeach
                                     </b>
                                 </a>
                             <td>
@@ -100,19 +102,66 @@
                 <p class="card-category">  </p>
             </div>
             <div class="card-body">
-                <a href="{{ route('manage:order:edit', $order->id) }}"  class="btn btn-success btn-round">Approve</a>
-                <a href="{{ route('manage:order:edit', $order->id) }}"  class="btn btn-primary btn-round">Complete</a>
+                <a href="{{ route('manage:order:show', $order->id) }}"  
+                        class="btn btn-success btn-round"  
+                        data-toggle="modal" 
+                        data-target="#approveModal"
+                        {{ $statuses->contains('Approved') ? 'disabled' : '' }}>Approve</a>
+                <a href="{{ route('manage:order:show', $order->id) }}"  
+                   class="btn btn-primary btn-round"  
+                   data-toggle="modal" 
+                   data-target="#completeModal"
+                   {{ $statuses->contains('Completed') ? 'disabled' : '' }}>Complete</a>
                 <a href="{{ route('manage:order:show', $order->id) }}"  
                    class="btn btn-danger btn-round"  
                    data-toggle="modal" 
-                   data-target="#deleteModal">Cancel</a>
+                   data-target="#deleteModal"
+                   {{ $statuses->contains('Completed') ? 'disabled' : '' }}>Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Approve Modal -->
+<div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container-fluid p-5">
+                    <h5 class="text-center mb-4">Are you sure ?</h5>
+                    <form id="approvalForm" class="text-center" method="POST" action="{{ route('manage:order:approve', $order->id)}}">
+                        @csrf
+                        <input type="hidden" value="approve" name="approval">
+                        <button type="button" class="btn btn-secondary ml-auto" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success ml-auto" form="approvalForm" >Approve</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Complete Modal -->
+<div class="modal fade" id="completeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container-fluid p-5">
+                    <h5 class="text-center mb-4">Are you sure ?</h5>
+                    <form id="completeForm" class="text-center" method="POST" action="{{ route('manage:order:complete', $order->id)}}">
+                        @csrf
+                        <input type="hidden" value="complete" name="complete">
+                        <button type="button" class="btn btn-secondary ml-auto" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary ml-auto" form="completeForm" >Complete</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="completeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
