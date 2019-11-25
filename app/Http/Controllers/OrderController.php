@@ -48,7 +48,7 @@ class OrderController extends Controller
         foreach ($content as $item) {
             $items[] = [
                 'name'          => $item->name,
-                'description'   => '-',
+                'description'   => $item->attributes['package']['short_description'],
                 'images'        => [env('APP_URL').'/media/thumbnails/'.$item->attributes['package']['image']],
                 'amount'        => $item->price . '00',
                 'currency'      => 'myr',
