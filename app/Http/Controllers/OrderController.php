@@ -95,9 +95,18 @@ class OrderController extends Controller
             'name'          => $package->name,
             'price'         => $package->price,
             'quantity'      => 1,
-            'attributes'    => array()
+            'attributes'    => [
+                'package'=> $package->only(['image', 'short_description']),
+            ]
         ]);
 
         return redirect()->back();
+    }
+    
+    public function clear()
+    {
+        app('CartService')->clear();
+
+        return back();
     }
 }

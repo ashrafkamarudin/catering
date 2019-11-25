@@ -12,6 +12,7 @@ Route::group([
 
     Route::get('/', $controller . '@index')->name('list');
     
-    Route::post('{package}', $controller . '@store')->name('add');
+    Route::post('{package}/add', $controller . '@store')->name('add');
     Route::get('checkout', $controller . '@checkout')->name('checkout');
+    Route::get('clear', $controller . '@clear')->name('clear');
 });

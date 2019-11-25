@@ -2,39 +2,33 @@
 
 @section('content')
 
-<div class="container">
-    <div class="row mt-5 mb-5">
-        <div class="col-lg-12 text-center">
-            <h2> Available Packages </h2>
-            <p>Find packages fit for your purpose here.</p>
-        </div>
-    </div>
+<div class="container" style="margin-top:2%">
+    <h2 class="text-center" style="padding-bottom:2%">Orders</h2>
+    <a href="{{ route('order:clear') }}">Clear Cart</a>
     <table class="table table-borderless">
-    <thead>
+    <thead >
         <tr >
-        <th scope="col" class="border">#</th>
-        <th scope="col" class="border">Name</th>
-        <th scope="col" class="border" width="15%">Quantity</th>
-        <th scope="col" class="border">Price</th>
+        <th scope="col" class="border" style="text-align:center">No.</th>
+        <th scope="col" class="border" style="text-align:center">Name</th>
+        <th scope="col" class="border" style="text-align:center" width="13%">Quantity</th>
+        <th scope="col" class="border" style="text-align:right">Price</th>
         </tr>
     </thead>
     <tbody class="border">
-        @foreach ($items as $item)
+        @foreach ($items as $key =>$item)
             <tr>
-                <th scope="row" class="border-bottom">1</th>
+                <th scope="row" class="border-bottom" style="text-align:center">{{$key+1}}</th>
                 <td class="border-bottom">
                     <div class="media">
-                        <img src="{{ asset('media/thumbnails/'.$item->attributes['package']->image) }}" class="mr-3" alt="..." width="128" height="128">
+                        <img src="{{ asset('media/thumbnails/'.$item->attributes['package']['image']) }}" class="mr-3" alt="..." width="128" height="128">
                         <div class="media-body">
                             <h5 class="mt-0">{{ $item->name }}</h5>
-                            <p>
-                                {{ $item->attributes['package']->short_description }}
-                            </p>
+                            {{ $item->attributes['package']['short_description'] }}
                         </div>
                     </div>
                 </td>
-                <td class="border-bottom" class="text-center">
-                    <div class="input-group mb-2 form-row">
+                <td class="border-bottom" class="text-center"  style="width:12%">
+                    <div class="input-group form-row" >
                         <div class="input-group-prepend">
                             <button class="btn btn-outline-secondary" type="button"><i class="fas fa-plus"></i></button>
                         </div>
@@ -44,15 +38,15 @@
                         </div>
                     </div>
                 </td>
-                <td class="border-bottom">RM {{ $item->price }}</td>
+                <td class="border-bottom" align="right">RM {{ $item->price }}</td>
             </tr>
             
         @endforeach
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3" class="border">Total</td>
-            <td class="border">RM {{ $total }}</td>
+            <td colspan="3" class="border" align="right"><b>Total</b></td>
+            <td class="border" align="right"><b>RM {{ $total }}</b></td>
         </tr>
     </tfoot>
     </table>
@@ -61,15 +55,15 @@
         <table class="table table-borderless">
             <tr>
                 <td>Total</td>
-                <td>RM 100</td>
+                <td>RM {{ $total }}</td>
             </tr>
             <tr>
-                <td>Shipping</td>
-                <td>RM 30</td>
+                <td>Services Charges</td>
+                <td>RM {{ $services = 0}}</td>
             </tr>
             <tr class="border-top border-dark">
                 <td>Total Amount</td>
-                <td>RM 130</td>
+                <td>RM {{ $total + $services }}</td>
             </tr>
             <tr>
                 <td colspan="2" align="center"><button type="submit" form="checkout" class="button"> Proceed to Checkout</button></td>

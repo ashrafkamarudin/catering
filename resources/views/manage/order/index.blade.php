@@ -80,21 +80,23 @@
                                             <span class="badge badge-info p-1">{{ $order->paymentStatus }}</span>
                                         </td>
                                         <td align="center">
-                                            @switch($order->orderStatus)
-                                                @case('Pending Approval')
-                                                    <span class="badge badge-info p-1"> {{ $order->orderStatus }} </span>
-                                                    @break
+                                            @foreach (collect(explode(',', $order->orderStatus)) as $item)
+                                                @switch($item)
+                                                    @case('Pending Approval')
+                                                        <span class="badge badge-info p-1"> {{ $item }} </span>
+                                                        @break
 
-                                                @case('Approved')
-                                                    <span class="badge badge-success p-1"> {{ $order->orderStatus }} </span>
-                                                    @break
-                                                
-                                                @case('Completed') 
-                                                    <span class="badge badge-primary p-1"> {{ $order->orderStatus }} </span>
-                                                    @break
-                                                @default
-                                                    <span>Something went wrong, please try again</span>
-                                            @endswitch
+                                                    @case('Approved')
+                                                        <span class="badge badge-success p-1"> {{ $item }} </span>
+                                                        @break
+                                                    
+                                                    @case('Completed') 
+                                                        <span class="badge badge-primary p-1"> {{ $item }} </span>
+                                                        @break
+                                                    @default
+                                                        <span>Something went wrong, please try again</span>
+                                                @endswitch
+                                            @endforeach
                                         </td>
                                         <td class="text-right">
                                             <a href="{{ route('manage:order:show', $order->id) }}"  class="btn btn-primary btn-round">view</a>
