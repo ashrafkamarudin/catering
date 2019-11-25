@@ -20,10 +20,10 @@
                 <th scope="row" class="border-bottom" style="text-align:center">{{$key+1}}</th>
                 <td class="border-bottom">
                     <div class="media">
-                        <img src="{{ asset('media/thumbnails/'.$item->attributes['package']->image) }}" class="mr-3" alt="..." width="128" height="128">
+                        <img src="{{ asset('media/thumbnails/'.$item->attributes['package']['image']) }}" class="mr-3" alt="..." width="128" height="128">
                         <div class="media-body">
                             <h5 class="mt-0">{{ $item->name }}</h5>
-                            {{ $item->attributes['package']->short_description }}
+                            {{ $item->attributes['package']['short_description'] }}
                         </div>
                     </div>
                 </td>
