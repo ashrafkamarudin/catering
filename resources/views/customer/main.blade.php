@@ -8,8 +8,7 @@
     <div class="hero-left">
     <h1 class="hero-title">Foods the <br> most precious things</h1>
     <div class="d-sm-flex flex-wrap">
-        <a class="button button-hero button-shadow" href="#">Book Now</a>
-        <a class="hero-banner__video" href="http://www.youtube.com/watch?v=0O2aH4XLbto">Watch Video</a>          
+        <a class="button button-hero button-shadow" href="/package">Book Now</a>          
     </div>
     <ul class="hero-info d-none d-lg-block">
         <li>
@@ -86,96 +85,32 @@
     <h2>Fresh taste and great price</h2>
     </div>
 
-
+   
     <div class="owl-carousel owl-theme featured-carousel">
-    <div class="featured-item">
-        <img class="card-img rounded-0" src="sneaky/img/home/featured1.png" alt="">
-        <div class="item-body">
-        <a href="#">
-            <h3>Mountain Mike Pizza</h3>
-        </a>
-        <p>Whales and darkness moving</p>
-        <div class="d-flex justify-content-between">
-            <ul class="rating-star">
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            </ul>
-            <h3 class="price-tag">$35</h3>
-        </div>
-        <div class="text-center">
-            <button class="button border-0" type="submit">Make Reservation</button>
-        </div>
-        </div>
-    </div>
-    <div class="featured-item">
-        <img class="card-img rounded-0" src="sneaky/img/home/featured2.png" alt="">
-        <div class="item-body">
-        <a href="#">
-            <h3>Patatas Bravas</h3>
-        </a>
-        <p>Whales and darkness moving</p>
-        <div class="d-flex justify-content-between">
-            <ul class="rating-star">
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            </ul>
-            <h3 class="price-tag">$30</h3>
-        </div>
-        <div class="text-center">
-            <button class="button border-0" type="submit">Make Reservation</button>
-        </div>
-        </div>
-    </div>
-    <div class="featured-item">
-        <img class="card-img rounded-0" src="sneaky/img/home/featured3.png" alt="">
-        <div class="item-body">
-        <a href="#">
-            <h3>Pulled Sandwich</h3>
-        </a>
-        <p>Whales and darkness moving</p>
-        <div class="d-flex justify-content-between">
-            <ul class="rating-star">
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            </ul>
-            <h3 class="price-tag">$20</h3>
-        </div>
-        <div class="text-center">
-            <button class="button border-0" type="submit">Make Reservation</button>
-        </div>
-        </div>
-    </div>
-    <div class="featured-item">
-        <img class="card-img rounded-0" src="sneaky/img/home/featured1.png" alt="">
-        <div class="item-body">
-        <a href="#">
-            <h3>Mountain Mike Pizza</h3>
-        </a>
-        <p>Whales and darkness moving</p>
-        <div class="d-flex justify-content-between">
-            <ul class="rating-star">
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            <li><i class="ti-star"></i></li>
-            </ul>
-            <h3 class="price-tag">$35</h3>
-        </div>
-        <div class="text-center">
-            <button class="button border-0" type="submit">Make Reservation</button>
-        </div>
-        </div>
-    </div>
+        @foreach ($packages as $package)
+        <div class="featured-item">
+            <img class="card-img rounded-0" src="{{ asset('media/thumbnails/'.$package->image) }}" alt="">
+            <div class="item-body">
+            <a href="#">
+                <h3>{{$package->name}} (<small class="price-tag">RM {{$package->price}}</small>)</h3>
+            </a>
+            <p>{{$package->description}}</p>
+            <div style="text-align:right">
+                {{-- <ul class="rating-star">
+                <li><i class="ti-star"></i></li>
+                <li><i class="ti-star"></i></li>
+                <li><i class="ti-star"></i></li>
+                <li><i class="ti-star"></i></li>
+                <li><i class="ti-star"></i></li>
+                </ul> --}}
+                
+            </div>
+            <div class="text-center">
+                <button class="button border-0" style="margin-top:2%" type="submit">Make Order</button>
+            </div>
+            </div>
+        </div> 
+        @endforeach
     </div>
 </div>
 </section>
@@ -212,7 +147,7 @@
 
 
 <!--================Chef section start =================-->  
-<section class="section-margin">
+{{-- <section class="section-margin">
 <div class="container">
     <div class="section-intro mb-75px">
     <h4 class="intro-title">Our Chef</h4>
@@ -278,12 +213,12 @@
     </div>
     </div>
 </div>
-</section>
+</section> --}}
 <!--================Chef section end =================-->  
 
 
 <!--================Reservation section start =================-->  
-<section class="bg-lightGray section-padding">
+{{-- <section class="bg-lightGray section-padding">
 <div class="container">
     <div class="row align-items-center">
     <div class="col-md-6 col-xl-5 mb-4 mb-md-0">
@@ -295,8 +230,7 @@
     </div>
     <div class="col-md-6 offset-xl-2 col-xl-5">
         <div class="search-wrapper">
-        <h3>Book A Catering</h3>
-
+        <h3>Join Us !!</h3>
         <form class="search-form" action="#">
             <div class="form-group">
             <div class="input-group">
@@ -346,6 +280,6 @@
     </div>
     </div>
 </div>
-</section>
+</section> --}}
 <!--================Reservation section end =================-->  
 @endsection

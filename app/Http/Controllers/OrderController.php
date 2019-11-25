@@ -95,7 +95,7 @@ class OrderController extends Controller
             'name'          => $package->name,
             'price'         => $package->price,
             'quantity'      => 1,
-            'attributes'    => array()
+            'attributes'    => array('image'=> $package->image,)
         ]);
 
         return redirect()->back();

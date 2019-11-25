@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('customer.main');
-});
+Route::get('/', 'HomeController@index');
 
 Route::get('/test', 'CartController@test');
 Route::get('/pay', 'PaymentController@makePayment');
