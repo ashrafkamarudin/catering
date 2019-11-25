@@ -106,7 +106,10 @@
                 
             </div>
             <div class="text-center">
-                <button class="button border-0" style="margin-top:2%" type="submit">Make Order</button>
+                <form method="POST" action="{{ route('order:add', $package->id) }}">
+                    @csrf
+                    <button class="button border-0" style="margin-top:2%" type="submit">Make Order</button>
+                </form>
             </div>
             </div>
         </div> 

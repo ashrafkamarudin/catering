@@ -9,20 +9,20 @@
         <tr >
         <th scope="col" class="border" style="text-align:center">No.</th>
         <th scope="col" class="border" style="text-align:center">Name</th>
-        <th scope="col" class="border" style="text-align:center">Quantity</th>
+        <th scope="col" class="border" style="text-align:center" width="13%">Quantity</th>
         <th scope="col" class="border" style="text-align:right">Price</th>
         </tr>
     </thead>
     <tbody class="border">
-        <?php $i= 0 ?>
-        @foreach ($items as $item)
+        @foreach ($items as $key =>$item)
             <tr>
-                <th scope="row" class="border-bottom" style="text-align:center">{{++$i}}</th>
+                <th scope="row" class="border-bottom" style="text-align:center">{{$key+1}}</th>
                 <td class="border-bottom">
                     <div class="media">
-                        <img src="{{ asset('media/thumbnails/'.$item->attributes['image']) }}" class="mr-3" alt="..." width="128" height="128">
+                        <img src="{{ asset('media/thumbnails/'.$item->attributes['package']->image) }}" class="mr-3" alt="..." width="128" height="128">
                         <div class="media-body">
                             <h5 class="mt-0">{{ $item->name }}</h5>
+                            {{ $item->attributes['package']->short_description }}
                         </div>
                     </div>
                 </td>
