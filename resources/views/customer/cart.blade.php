@@ -4,6 +4,7 @@
 
 <div class="container" style="margin-top:2%">
     <h2 class="text-center" style="padding-bottom:2%">Orders</h2>
+    <a href="{{ route('order:clear') }}">Clear Cart</a>
     <table class="table table-borderless">
     <thead >
         <tr >

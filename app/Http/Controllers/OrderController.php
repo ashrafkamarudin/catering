@@ -102,4 +102,11 @@ class OrderController extends Controller
 
         return redirect()->back();
     }
+    
+    public function clear()
+    {
+        app('CartService')->clear();
+
+        return back();
+    }
 }

@@ -14,4 +14,5 @@ Route::group([
     
     Route::post('{package}/add', $controller . '@store')->name('add');
     Route::get('checkout', $controller . '@checkout')->name('checkout');
+    Route::get('clear', $controller . '@clear')->name('clear');
 });
