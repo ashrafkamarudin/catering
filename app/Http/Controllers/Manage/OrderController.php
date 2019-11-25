@@ -42,17 +42,21 @@ class OrderController extends Controller
     
     public function complete(Order $order)
     {
-        $var = collect(explode(',', $order->status))->contains('Approved');
-
-        if (collect(explode(',', $order->status))->contains('Approved')) {
-            $order->update([
-                'orderStatus'   => implode(",",array_merge([$order->orderStatus], ['Completed']))
-            ]);
-        
-            Session::flash('success', Sprintf('Order is now complete.'));
-        } else {
+        if (!collect(explode(',', $order->status))->contains('Approved')) {
             Session::flash('error', Sprintf('Order must be approve first.'));
+            return back();
         }
+
+        if ($order->paymentStatus == 'Pending') {
+            Session::flash('error', Sprintf('Order must be fully paid first.'));
+            return back();
+        }
+
+        $order->update([
+            'orderStatus'   => implode(",",array_merge([$order->orderStatus], ['Completed']))
+        ]);
+    
+        Session::flash('success', Sprintf('Order is now complete.'));
 
         return redirect()->route('manage:order:show', $order->id);
     }
