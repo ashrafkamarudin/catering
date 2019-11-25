@@ -47,7 +47,7 @@
             <div class="content">
                 @yield('content')
             </div>
-            @include('manage.footer')
+            <!-- @include('manage.footer') -->
         </div>
     </div>
 
