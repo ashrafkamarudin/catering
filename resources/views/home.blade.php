@@ -349,7 +349,7 @@
         <div class="col-md-6 offset-xl-2 col-xl-5">
           <div class="search-wrapper">
             <h3>Book A Catering</h3>
-
+            <p>by register with us</p>
             <form class="search-form" action="#">
               <div class="form-group">
                 <div class="input-group">

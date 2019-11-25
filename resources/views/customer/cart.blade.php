@@ -2,30 +2,32 @@
 
 @section('content')
 
-<div class="container">
+<div class="container" style="margin-top:2%">
+    <h2 class="text-center" style="padding-bottom:2%">Orders</h2>
     <table class="table table-borderless">
-    <thead>
+    <thead >
         <tr >
-        <th scope="col" class="border">#</th>
-        <th scope="col" class="border">Name</th>
-        <th scope="col" class="border">Quantity</th>
-        <th scope="col" class="border">Price</th>
+        <th scope="col" class="border" style="text-align:center">No.</th>
+        <th scope="col" class="border" style="text-align:center">Name</th>
+        <th scope="col" class="border" style="text-align:center">Quantity</th>
+        <th scope="col" class="border" style="text-align:right">Price</th>
         </tr>
     </thead>
     <tbody class="border">
+        <?php $i= 0 ?>
         @foreach ($items as $item)
             <tr>
-                <th scope="row" class="border-bottom">1</th>
+                <th scope="row" class="border-bottom" style="text-align:center">{{++$i}}</th>
                 <td class="border-bottom">
                     <div class="media">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRlVa5KaiFAz-6dHSmlmtyI86pW9zGZjYO2Ftp-3ryktqRFTJci" class="mr-3" alt="..." width="128" height="128">
+                        <img src="{{ asset('media/thumbnails/'.$item->attributes['image']) }}" class="mr-3" alt="..." width="128" height="128">
                         <div class="media-body">
                             <h5 class="mt-0">{{ $item->name }}</h5>
                         </div>
                     </div>
                 </td>
-                <td class="border-bottom" class="text-center">
-                    <div class="input-group mb-2 form-row">
+                <td class="border-bottom" class="text-center"  style="width:12%">
+                    <div class="input-group form-row" >
                         <div class="input-group-prepend">
                             <button class="btn btn-outline-secondary" type="button"><i class="fas fa-plus"></i></button>
                         </div>
@@ -35,15 +37,15 @@
                         </div>
                     </div>
                 </td>
-                <td class="border-bottom">RM {{ $item->price }}</td>
+                <td class="border-bottom" align="right">RM {{ $item->price }}</td>
             </tr>
             
         @endforeach
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3" class="border">Total</td>
-            <td class="border">RM {{ $total }}</td>
+            <td colspan="3" class="border" align="right"><b>Total</b></td>
+            <td class="border" align="right"><b>RM {{ $total }}</b></td>
         </tr>
     </tfoot>
     </table>
@@ -52,15 +54,15 @@
         <table class="table table-borderless">
             <tr>
                 <td>Total</td>
-                <td>RM 100</td>
+                <td>RM {{ $total }}</td>
             </tr>
             <tr>
-                <td>Shipping</td>
-                <td>RM 30</td>
+                <td>Services Charges</td>
+                <td>RM {{ $services = 0}}</td>
             </tr>
             <tr class="border-top border-dark">
                 <td>Total Amount</td>
-                <td>RM 130</td>
+                <td>RM {{ $total + $services }}</td>
             </tr>
             <tr>
                 <td colspan="2" align="center"><button type="submit" form="checkout" class="button"> Proceed to Checkout</button></td>
