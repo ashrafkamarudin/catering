@@ -94,7 +94,7 @@
             <a href="#">
                 <h3>{{$package->name}} (<small class="price-tag">RM {{$package->price}}</small>)</h3>
             </a>
-            <p>{{$package->description}}</p>
+            <p>{{$package->short_description}}</p>
             <div style="text-align:right">
                 {{-- <ul class="rating-star">
                 <li><i class="ti-star"></i></li>
