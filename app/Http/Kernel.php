@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'CanUseCart'           => \App\Http\Middleware\CanUseCart::class,
+        'CanUseDashboard'           => \App\Http\Middleware\CanUseDashboard::class,
     ];
 
     /**
