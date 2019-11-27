@@ -16,9 +16,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::paginate(5);
+        $paidOrders = Order::where('paymentStatus', 'paid')->paginate(5);
+        $pendingOrders = Order::where('paymentStatus', 'pending')->paginate(5);
 
-        return view('manage.order.index')->withOrders($orders);
+        return view('manage.order.index')
+                ->withPaidOrders($paidOrders)
+                ->withPendingOrders($pendingOrders);
     }
 
     public function show(order $order)

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Cart;
-use DB;
-use Session;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Package;
 use App\Order;
 use App\OrderItem;
+use Cart;
+use DB;
+use Session;
 
 class OrderController extends Controller
 {
@@ -58,8 +59,9 @@ class OrderController extends Controller
 
         $stripeSession = app('StripeService')->oneTimePayment($items);
 
-        DB::transaction(function () use ($content, $stripeSession) {
+        $order = DB::transaction(function () use ($content, $stripeSession) {
             $order = Order::create([
+                'uuid'                      => (string) Str::uuid(),
                 'paymentStatus'             => 'Pending',
                 'orderStatus'               => 'Pending Approval',
                 'stripeSessionId'           => $stripeSession->id,
@@ -73,12 +75,15 @@ class OrderController extends Controller
                 ]);
             }
 
-            return true;
+            return $order;
         });
+
+        $order->load(['items']);
 
         app('CartService')->clear();
 
         return view('checkout')
+                ->withOrder($order)
                 ->withSession($stripeSession);
     }
 

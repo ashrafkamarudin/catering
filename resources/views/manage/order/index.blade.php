@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        @if ($orders->isEmpty())
+        @if ($paidOrders->isEmpty() && $pendingOrders->isEmpty())
             <div class="col-lg-12 justify-content-center" 
                 style="
                 height: 50vh;
@@ -32,7 +32,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title"> 
-                        List of Order 
+                        List of Order (Payment Pending)
                     </h4>
                     <p class="card-category"> All of your catering orders is here </p>
                 </div>
@@ -61,7 +61,7 @@
                             </thead>
                             <tbody>
 
-                                @foreach ($orders as $key => $order)
+                                @foreach ($pendingOrders as $key => $order)
                                     <tr>
                                         <td>
                                             {{ $key+1 }}
@@ -107,14 +107,98 @@
                             </tbody>
                         </table>
 
-                        {{ $orders->links() }}
+                        {{ $pendingOrders->links() }}
                         
                     </div>
                 </div>
             </div>
         </div>
 
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"> 
+                        List of Order (Paid)
+                    </h4>
+                    <p class="card-category"> All of your catering orders is here </p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                                <th>
+                                    Order #
+                                </th>
+                                <th>
+                                    Items
+                                </th>
+                                <th>
+                                    Request Date
+                                </th>
+                                <th>
+                                    Payment Status
+                                </th>
+                                <th>
+                                    Order Status
+                                </th>
+                                <th class="text-right">
+                                    Action
+                                </th>
+                            </thead>
+                            <tbody>
+
+                                @foreach ($paidOrders as $key => $order)
+                                    <tr>
+                                        <td>
+                                            {{ $key+1 }}
+                                        </td>
+                                        <td>
+                                            <ul>
+                                            @foreach ($order->items as $item)
+                                                <li>{{ json_decode($item->item)->name }} x {{ json_decode($item->item)->quantity }}</li>
+                                            @endforeach
+                                            <ul>
+                                        </td>
+                                        <td>
+                                            {{ $order->created_at->format('F d, Y') }}
+                                        </td>
+                                        <td align="center">
+                                            <span class="badge badge-info p-1">{{ $order->paymentStatus }}</span>
+                                        </td>
+                                        <td align="center">
+                                            @foreach (collect(explode(',', $order->orderStatus)) as $item)
+                                                @switch($item)
+                                                    @case('Pending Approval')
+                                                        <span class="badge badge-info p-1"> {{ $item }} </span>
+                                                        @break
+
+                                                    @case('Approved')
+                                                        <span class="badge badge-success p-1"> {{ $item }} </span>
+                                                        @break
+                                                    
+                                                    @case('Completed') 
+                                                        <span class="badge badge-primary p-1"> {{ $item }} </span>
+                                                        @break
+                                                    @default
+                                                        <span>Something went wrong, please try again</span>
+                                                @endswitch
+                                            @endforeach
+                                        </td>
+                                        <td class="text-right">
+                                            <a href="{{ route('manage:order:show', $order->id) }}"  class="btn btn-primary btn-round">view</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+
+                        {{ $paidOrders->links() }}
                         
+                    </div>
+                </div>
+            </div>
+        </div>        
         @endif
     </div>
 @endsection

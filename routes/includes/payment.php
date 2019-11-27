@@ -14,4 +14,5 @@ Route::group([
 
     Route::get('success', $controller . '@displaySuccessPage')->name('success');
     Route::get('cancel', $controller . '@displayFailPage')->name('fail');
+    Route::post('cancel', $controller . '@displayFailPage')->name('fail');
 });

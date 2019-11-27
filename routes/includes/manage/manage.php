@@ -4,7 +4,10 @@ Route::group([
     'prefix'        => 'manage', 
     'as'            => 'manage:', 
     'namespace' => 'Manage',
-    'middleware' => 'auth'
+    'middleware' => [
+                        'CanUseDashboard',
+                        'auth'
+                    ]
 
     ], function () {
         
