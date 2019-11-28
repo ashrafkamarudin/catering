@@ -70,7 +70,7 @@
                                             {{ $sale->receiptNumber }}
                                         </td>
                                         <td>
-                                            {{ $sale->short_description }}
+                                            Total : {{ collect(json_decode($sale->items)->count()) }}
                                         </td>
                                         <td>
                                             RM {{ $sale->tax }}
