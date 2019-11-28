@@ -85,7 +85,6 @@
                                         </td>
                                         <td class="text-right">
                                             <a href="{{ route('manage:package:show', $sale->id) }}"  class="btn btn-primary btn-round">view</a>
-                                            <a href="{{ route('manage:package:edit', $sale->id) }}"  class="btn btn-success btn-round">edit</a>
                                         </td>
                                     </tr>
                                 @endforeach
