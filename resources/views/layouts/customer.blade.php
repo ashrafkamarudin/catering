@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Sneaky Catering - Home</title>
+  <title>{{ config('app.name', 'Laravel') }} - Home</title>
 	<link rel="icon" href="{{ asset('sneaky/img/Fevicon.png')}}" type="image/png">
 
   <link rel="stylesheet" href="{{ asset('sneaky/vendors/bootstrap/bootstrap.min.css') }}">
