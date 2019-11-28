@@ -13,8 +13,8 @@
             <!-- <div class="logo-image-big">
               <img src="../assets/img/logo-big.png">
             </div> -->
-            </a>
-        </div>
+        </a>
+    </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
             <li class=" {{ Request::is('manage/dashboard') ? 'active' : '' }}">
@@ -26,14 +26,11 @@
 
             <hr>
 
-            @permission('read-customer')
-            <li class=" {{ Request::is('manage/customer/*') ? 'active' : '' }}">
-                <a href="{{ route('manage:customer:index') }}">
-                    <i class="nc-icon nc-badge"></i>
-                    <p>Customers</p>
+            <li class="">
+                <a href="">
+                    <p>Product</p>
                 </a>
             </li>
-            @endpermission
 
             @permission('read-package')
             <li class=" {{ Request::is('manage/package/*') ? 'active' : '' }}">
@@ -44,6 +41,14 @@
             </li>
             @endpermission
 
+            <hr>
+
+            <li class="">
+                <a href="">
+                    <p>Sales</p>
+                </a>
+            </li>
+
             @permission('read-order')
             <li class=" {{ Request::is('manage/order/*') ? 'active' : '' }}">
                 <a href="{{ route('manage:order:index') }}">
@@ -53,7 +58,31 @@
             </li>
             @endpermission
 
+            @permission('read-order')
+            <li class=" {{ Request::is('manage/sale/*') ? 'active' : '' }}">
+                <a href="{{ route('manage:sale:index') }}">
+                    <i class="nc-icon nc-single-copy-04"></i>
+                    <p>Sales</p>
+                </a>
+            </li>
+            @endpermission
+
             <hr>
+
+            <li class="">
+                <a href="">
+                    <p>Management</p>
+                </a>
+            </li>
+
+            @permission('read-customer')
+            <li class=" {{ Request::is('manage/customer/*') ? 'active' : '' }}">
+                <a href="{{ route('manage:customer:index') }}">
+                    <i class="nc-icon nc-badge"></i>
+                    <p>Customers</p>
+                </a>
+            </li>
+            @endpermission
 
             @permission('read-user')
             <li class=" {{ Request::is('manage/user/*') ? 'active' : '' }}">

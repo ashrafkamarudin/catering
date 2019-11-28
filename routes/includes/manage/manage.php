@@ -16,12 +16,12 @@ Route::group([
     // Admin and Staff
 	Route::group(['middleware' => ['role:admin|staff']], function() {
 
-        // Manage User
+        // User
         Route::group(['prefix' => 'customer', 'as' => 'customer:'], function() {
             Route::get('index', 'UserController@customer')->name('index');
         });
 
-        // Manage Package
+        // Package
         Route::group(['prefix' => 'package', 'as' => 'package:'], function() {
             Route::get('index', 'PackageController@index')->name('index');
             Route::get('create', 'PackageController@create')->name('create');
@@ -33,7 +33,7 @@ Route::group([
             Route::delete('{package}/destroy', 'PackageController@destroy')->name('destroy');
         });
 
-        // Manage Order
+        // Order
         Route::group(['prefix' => 'order', 'as' => 'order:'], function() {
             Route::get('index', 'OrderController@index')->name('index');
             Route::get('{order}/show', 'OrderController@show')->name('show');
@@ -42,6 +42,11 @@ Route::group([
             Route::post('{order}/approve', 'OrderController@approve')->name('approve');
             Route::post('{order}/complete', 'OrderController@complete')->name('complete');
             Route::get('{order}/cancel', 'OrderController@cancel')->name('cancel');
+        });
+
+        // Sale
+        Route::group(['prefix' => 'sale', 'as' => 'sale:'], function() {
+            Route::get('index', 'SaleController@index')->name('index');
         });
     });
     
