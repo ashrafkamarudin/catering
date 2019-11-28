@@ -19,8 +19,8 @@
                     <i class="nc-icon nc-diamond text-danger" style="font-size:60px;"></i>
                     <br>
                     Aww,
-                    Your Packages List is Empty, <br>
-                    Please add new package and it will appear here.
+                    Your Sale List is Empty, <br>
+                    Please wait for new Sale.
                     <br>
                     <a href="{{ route('manage:package:create') }}" class="btn btn-primary btn-large">Create New Package</a>
                     <br><br>
@@ -30,11 +30,10 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('manage:package:create') }}" class="btn btn-primary pull-right">Create New Package</a>
                     <h4 class="card-title"> 
-                        List of Package 
+                        List of Sale 
                     </h4>
-                    <p class="card-category"> All of your catering packages is here </p>
+                    <p class="card-category"> All of your packages sale is here</p>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
