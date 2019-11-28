@@ -56,20 +56,16 @@ class StripeService extends BaseService
             );
         } catch(\UnexpectedValueException $e) {
             // Invalid payload
-            \Log::info('invalid payload');
             http_response_code(400);
             exit();
         } catch(\Stripe\Exception\SignatureVerificationException $e) {
             // Invalid signature
-            \Log::info('invalid signature');
             http_response_code(400);
             exit();
         }
-        \Log::info('almost');
         // Handle the checkout.session.completed event
         if ($event->type == 'checkout.session.completed') {
             $session = $event->data->object;
-            \Log::info('complete');
 
             // Fulfill the purchase...
             $this->generatePaymentReceipt($session);
