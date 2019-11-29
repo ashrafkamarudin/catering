@@ -66,7 +66,7 @@ class OrderController extends Controller
                 'paymentStatus'             => 'Pending',
                 'orderStatus'               => 'Pending Approval',
                 'subTotal'                  => 0,
-                'paymentTotal'              => $cartContent['total'],
+                'total'                     => $cartContent['total'],
                 'stripeSessionId'           => $stripeSession->id,
                 'stripeSessionIdExpiry_at'  => Carbon::now()->addHours(24),
             ]);
