@@ -85,6 +85,8 @@ class StripeService extends BaseService
             $order->update([
                 'paymentStatus' => 'Paid'
             ]);
+
+            \Log::info($order);
             
             Sale::create([
                 'user_id' => $order->user_id,
