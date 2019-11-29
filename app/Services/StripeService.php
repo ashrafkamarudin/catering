@@ -93,7 +93,7 @@ class StripeService extends BaseService
                 'items' => json_encode($StripeRequest->display_items),
                 'tax'   => 0,
                 'subTotal'  => $order->subTotal,
-                'totalAmount' => $order->totalAmount,
+                'totalAmount' => $order->total,
                 'paid_at'   => now(),
             ]);
 

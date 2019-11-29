@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('paymentStatus');
             $table->string('orderStatus');
             $table->integer('subTotal');
-            $table->integer('paymentTotal');
+            $table->integer('total');
             $table->string('stripeSessionId');
             $table->dateTime('stripeSessionIdExpiry_at');
             $table->timestamps();
