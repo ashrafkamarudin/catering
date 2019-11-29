@@ -36,8 +36,8 @@ class StripeService extends BaseService
         $session = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
             'line_items' => [$items],
-            'success_url' => env('APP_URL').'/payment/success?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url' => env('APP_URL').'/payment/cancel',
+            'success_url' => config('app.url') .'/payment/success?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => config('app.url') .'/payment/cancel',
             ]);
 
         return $session;
