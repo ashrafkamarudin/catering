@@ -28,7 +28,19 @@ class CreatePackageRequest extends FormRequest
             'name' => ['required', 'min:5', 'max:255'],
             'description' => ['required', 'min:20', 'max:255'],
             'content' => ['required', 'min:20', 'max:255'],
-            'price' => ['required', 'numeric', 'between:0,9999'],
+            'price' => ['required', 'numeric', 'between:5,9999'],
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'price.between' => 'Minimum Package Price must be at least RM 5',
         ];
     }
 }
