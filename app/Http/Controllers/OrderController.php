@@ -62,6 +62,7 @@ class OrderController extends Controller
         $order = DB::transaction(function () use ($cartContent, $stripeSession) {
             $order = Order::create([
                 'uuid'                      => (string) Str::uuid(),
+                'user_id'                   => auth()->user()->id,
                 'paymentStatus'             => 'Pending',
                 'orderStatus'               => 'Pending Approval',
                 'subTotal'                  => 0,

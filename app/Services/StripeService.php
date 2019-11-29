@@ -87,7 +87,7 @@ class StripeService extends BaseService
             ]);
             
             Sale::create([
-                'user_id' => 1,
+                'user_id' => $order->user_id,
                 'payment_id' => $StripeRequest->payment_intent,
                 'receiptNumber' => Carbon::now()->timestamp,
                 'items' => json_encode($StripeRequest->display_items),
