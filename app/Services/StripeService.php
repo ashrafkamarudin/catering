@@ -79,6 +79,12 @@ class StripeService extends BaseService
     public function generatePaymentReceipt($StripeRequest)
     {
         DB::transaction(function () use ($StripeRequest) {
+
+            $order = Order::where('stripeSessionId', $StripeRequest->id)->first();
+
+            $order->update([
+                'paymentStatus' => 'Paid'
+            ]);
             
             Sale::create([
                 'user_id' => 1,
@@ -86,15 +92,9 @@ class StripeService extends BaseService
                 'receiptNumber' => Carbon::now()->timestamp,
                 'items' => json_encode($StripeRequest->display_items),
                 'tax'   => 0,
-                'subTotal'  => 0,
-                'totalAmount' => 0,
+                'subTotal'  => $order->subTotal,
+                'totalAmount' => $order->totalAmount,
                 'paid_at'   => now(),
-            ]);
-
-            $order = Order::where('stripeSessionId', $StripeRequest->id)->first();
-
-            $order->update([
-                'paymentStatus' => 'Paid'
             ]);
 
             return true;

@@ -37,20 +37,20 @@ class OrderController extends Controller
 
         // need to change to place order
 
-        $content = app('CartService')->getItems();
+        $cartContent = app('CartService')->getContent();
 
-        if ($content->isEmpty()) {
+        if ($cartContent['content']->isEmpty()) {
             Session::flash('error', 'Please add at least one item to Order List');
 
             return redirect()->route('order:list');
         }
 
         $items = [];
-        foreach ($content as $item) {
+        foreach ($cartContent['content'] as $item) {
             $items[] = [
                 'name'          => $item->name,
                 'description'   => $item->attributes['package']['short_description'],
-                'images'        => [env('APP_URL').'/media/thumbnails/'.$item->attributes['package']['image']],
+                'images'        => [config('app.url').'/media/thumbnails/'.$item->attributes['package']['image']],
                 'amount'        => $item->price . '00',
                 'currency'      => 'myr',
                 'quantity'      => $item->quantity,
@@ -59,16 +59,18 @@ class OrderController extends Controller
 
         $stripeSession = app('StripeService')->oneTimePayment($items);
 
-        $order = DB::transaction(function () use ($content, $stripeSession) {
+        $order = DB::transaction(function () use ($cartContent, $stripeSession) {
             $order = Order::create([
                 'uuid'                      => (string) Str::uuid(),
                 'paymentStatus'             => 'Pending',
                 'orderStatus'               => 'Pending Approval',
+                'subTotal'                  => 0,
+                'paymentTotal'              => $cartContent['total'],
                 'stripeSessionId'           => $stripeSession->id,
                 'stripeSessionIdExpiry_at'  => Carbon::now()->addHours(24),
             ]);
 
-            foreach ($content as $item) {
+            foreach ($cartContent['content'] as $item) {
                 OrderItem::create([
                     'order_id'  => $order->id,
                     'item'          => json_encode($item)

@@ -17,7 +17,7 @@ class PaymentController extends Controller
             $items[] = [
                 'name' => $item->name,
                 'description' => '-',
-                'images' => [env('APP_URL').'/media/thumbnails/'.$item->image],
+                'images' => [config('app.url').'/media/thumbnails/'.$item->image],
                 'amount' => $item->price . '00',
                 'currency' => 'myr',
                 'quantity' => $item->quantity,
@@ -31,7 +31,6 @@ class PaymentController extends Controller
 
     public function oneTimePaymentWebhook()
     {
-        \Log::info('onSuccess');
         $response = app('StripeService')->onCheckoutSessionCompleted();
         return $response;
     }
