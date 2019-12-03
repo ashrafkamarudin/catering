@@ -19,6 +19,11 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('paymentStatus');
             $table->string('orderStatus');
+            $table->string('email');
+            $table->string('name');
+            $table->string('phoneNo');
+            $table->string('eventDate');
+            $table->string('address');
             $table->integer('subTotal');
             $table->integer('total');
             $table->string('stripeSessionId');

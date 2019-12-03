@@ -11,6 +11,7 @@ use App\OrderItem;
 use Cart;
 use DB;
 use Session;
+use App\Http\Requests\Order\CreateOrderRequest;
 
 class OrderController extends Controller
 {
@@ -33,8 +34,7 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function checkout(){
-
+    public function checkout(CreateOrderRequest $request){
         // need to change to place order
 
         $cartContent = app('CartService')->getContent();
@@ -59,12 +59,17 @@ class OrderController extends Controller
 
         $stripeSession = app('StripeService')->oneTimePayment($items);
 
-        $order = DB::transaction(function () use ($cartContent, $stripeSession) {
+        $order = DB::transaction(function () use ($cartContent, $stripeSession, $request) {
             $order = Order::create([
                 'uuid'                      => (string) Str::uuid(),
                 'user_id'                   => auth()->user()->id,
                 'paymentStatus'             => 'Pending',
                 'orderStatus'               => 'Pending Approval',
+                'email'                     => $request->email,
+                'name'                      => $request->name,
+                'phoneNo'                   => $request->phoneNo,
+                'eventDate'                 => $request->eventDate,
+                'address'                   => $request->address,
                 'subTotal'                  => 0,
                 'total'                     => $cartContent['total'],
                 'stripeSessionId'           => $stripeSession->id,
@@ -116,5 +121,12 @@ class OrderController extends Controller
         app('CartService')->clear();
 
         return back();
+    }
+
+    public function customer(Package $package, $id){
+
+        $orders = Order::where('user_id', $id)->get();
+
+        return view('customer.order')->withOrders($orders);
     }
 }

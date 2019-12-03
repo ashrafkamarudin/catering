@@ -28,16 +28,16 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">{{ Auth::user()->name }}</a>
                 <ul class="dropdown-menu">
-
+                    <li class="nav-item"><a class="nav-link" href="{{ route('order:customer', Auth::user()->id) }}">Order Summary</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('manage:dashboard') }}">Dashboard</a></li>
-                  <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}</a>
-                  </li>
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                  </form>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}</a>
+                    </li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                    </form>
                 </ul>
 			</li>
             @endguest

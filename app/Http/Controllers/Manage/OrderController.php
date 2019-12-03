@@ -63,4 +63,5 @@ class OrderController extends Controller
 
         return redirect()->route('manage:order:show', $order->id);
     }
+
 }

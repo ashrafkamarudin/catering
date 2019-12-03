@@ -32,7 +32,7 @@
                                 Event Address
                             <td>
                             <td class="column-content">
-                                <a href="#" class="nav-link"><b>Lot 1788 Kampong Gong Pauh, Jalan Kubang Tangga, 20050 Kuala Terengganu</b></a>
+                                <a href="#" class="nav-link"><b>{{ $order->address }}</b></a>
                             <td>
                         </tr>
                         <tr>
