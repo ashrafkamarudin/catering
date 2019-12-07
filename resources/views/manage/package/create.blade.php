@@ -70,7 +70,7 @@
 
 
                     <div class="form-group row">
-                        <label for="staticEmail" class="col-sm-4 col-form-label">Package Price</label>
+                        <label for="staticEmail" class="col-sm-4 col-form-label">Package Price / PAX</label>
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <div class="input-group-prepend">

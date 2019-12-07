@@ -44,7 +44,7 @@
                                 Price
                             <td>
                             <td class="column-content">
-                                <a href="#" class="nav-link"><b>RM {{ $package->price }}</b></a>
+                                <a href="#" class="nav-link"><b>RM {{ $package->price }} / PAX</b></a>
                             <td>
                         </tr>
                         <tr>
