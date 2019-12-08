@@ -108,7 +108,7 @@ class OrderController extends Controller
             return $order;
         });
 
-        //app('CartService')->clear();
+        app('CartService')->clear();
 
         return redirect()->route('order:checkout', $order);
     }
