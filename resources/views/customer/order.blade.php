@@ -26,7 +26,9 @@
                     <td class="text-right">RM {{$order->total}}</td>
                     <td class="text-center">{{$order->paymentStatus}}</td>
                     <td class="text-center">
-                        <a href="{{ route('order:checkout', $order) }}">Checkout</a>
+                        @if ($order->paymentStatus === 'Pending')
+                            <a href="{{ route('order:checkout', $order) }}" disabled>Checkout</a>
+                        @endif
                     </td>
                 </tr>
             @endforeach 
