@@ -18,10 +18,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $package = Package::all();
-        $sale = Sale::all();
-        $order = Order::all();
-        $customer = User::all();
+        $package    = Package::all();
+        $sale       = Sale::all();
+        $order      = Order::all();
+        $customer   = User::all();
 
         return view('manage.dashboard')
             ->withPackageCount($package->count())
