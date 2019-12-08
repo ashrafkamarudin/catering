@@ -85,7 +85,7 @@
                                     @foreach (json_decode($sale->items) as $item)
                                         <tr>
                                             <td>
-                                                {{ $item->name }}<br>
+                                                {{ $item['name'] }}<br>
                                                 {{ $item->description }}
                                             </td>
                                             <td>{{ $item->quantity }}</td>
