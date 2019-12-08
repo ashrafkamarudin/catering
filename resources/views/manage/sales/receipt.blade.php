@@ -86,7 +86,7 @@
                                         <tr>
                                             <td>
                                                 {{ $item->custom->name }}<br>
-                                                {{ $item->custom->description }}
+                                                Description : {{ $item->custom->description }}
                                             </td>
                                             <td>{{ $item->quantity }}</td>
                                             <td>{{ $item->amount }}</td>
@@ -97,15 +97,18 @@
                                 <tfoot>
                                     <tr>
                                         <td></td>
+                                        <td></td>
                                         <td><strong> Sub Total</strong></td>
                                         <td> RM {{ $sale->tax }} </td>
                                     </tr>
                                     <tr>
                                         <td></td>
+                                        <td></td>
                                         <td><strong> Tax</strong></td>
                                         <td> RM {{ $sale->subTotal }} </td>
                                     </tr>
                                     <tr>
+                                        <td></td>
                                         <td></td>
                                         <td><strong>Total </strong></td>
                                         <td> RM {{ $sale->totalAmount }} </td>
