@@ -89,8 +89,8 @@
                                                 Description : {{ $item->custom->description }}
                                             </td>
                                             <td>{{ $item->quantity }}</td>
-                                            <td>{{ $item->amount }}</td>
-                                            <td>{{ $item->amount }}</td>
+                                            <td> RM {{ substr($item->amount, 0, -2) }} . {{ substr($item->amount,-2) }}</td>
+                                            <td> RM {{ substr($item->amount, 0, -2) }} . {{ substr($item->amount,-2) }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
