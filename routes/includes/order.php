@@ -13,7 +13,8 @@ Route::group([
     Route::get('/', $controller . '@index')->name('list');
     
     Route::post('{package}/add', $controller . '@store')->name('add');
-    Route::post('checkout', $controller . '@checkout')->name('checkout');
+    Route::post('create', $controller . '@create')->name('create');
+    Route::get('checkout/{order}', $controller . '@checkout')->name('checkout');
     Route::get('clear', $controller . '@clear')->name('clear');
     Route::get('customer/{id}', $controller . '@customer')->name('customer');
 });

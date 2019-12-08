@@ -29,14 +29,50 @@ class OrderController extends Controller
             ->withTotal($cartContent['total']);
     }
 
+    public function checkout(Order $order)
+    {
+        $stripeSession = $this->getStripeSession($order);
+
+        return view('checkout')
+            ->withOrder($order)
+            ->withSession($stripeSession);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function checkout(CreateOrderRequest $request){
+    public function getStripeSession(Order $order){
         // need to change to place order
 
+        $order->load(['items']);
+
+        $items = [];
+        foreach ($order->items as $item) {
+
+            $decodedItem = json_decode($item->item);
+            $items[] = [
+                'name'          => $decodedItem->name,
+                'description'   => $decodedItem->attributes->package->short_description,
+                'images'        => [config('app.url').'/media/thumbnails/'.$decodedItem->attributes->package->image],
+                'amount'        => $decodedItem->price . '00',
+                'currency'      => 'myr',
+                'quantity'      => $decodedItem->quantity,
+            ];
+        }
+
+        $stripeSession = app('StripeService')->oneTimePayment($items);
+
+        $order->update([
+            'stripeSessionId'   => $stripeSession->id
+        ]);
+
+        return $stripeSession;
+    }
+
+    public function create(CreateOrderRequest $request)
+    {
         $cartContent = app('CartService')->getContent();
 
         if ($cartContent['content']->isEmpty()) {
@@ -45,21 +81,7 @@ class OrderController extends Controller
             return redirect()->route('order:list');
         }
 
-        $items = [];
-        foreach ($cartContent['content'] as $item) {
-            $items[] = [
-                'name'          => $item->name,
-                'description'   => $item->attributes['package']['short_description'],
-                'images'        => [config('app.url').'/media/thumbnails/'.$item->attributes['package']['image']],
-                'amount'        => $item->price . '00',
-                'currency'      => 'myr',
-                'quantity'      => $item->quantity,
-            ];
-        }
-
-        $stripeSession = app('StripeService')->oneTimePayment($items);
-
-        $order = DB::transaction(function () use ($cartContent, $stripeSession, $request) {
+        $order = DB::transaction(function () use ($cartContent, $request) {
             $order = Order::create([
                 'uuid'                      => (string) Str::uuid(),
                 'user_id'                   => auth()->user()->id,
@@ -72,7 +94,7 @@ class OrderController extends Controller
                 'address'                   => $request->address,
                 'subTotal'                  => 0,
                 'total'                     => $cartContent['total'],
-                'stripeSessionId'           => $stripeSession->id,
+                'stripeSessionId'           => '',
                 'stripeSessionIdExpiry_at'  => Carbon::now()->addHours(24),
             ]);
 
@@ -86,13 +108,9 @@ class OrderController extends Controller
             return $order;
         });
 
-        $order->load(['items']);
+        //app('CartService')->clear();
 
-        app('CartService')->clear();
-
-        return view('checkout')
-                ->withOrder($order)
-                ->withSession($stripeSession);
+        return redirect()->route('order:checkout', $order);
     }
 
     /**
@@ -101,13 +119,13 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Package $package)
+    public function store(Request $request, Package $package)
     {
         app('CartService')->add([
             'id'            => $package->id,
             'name'          => $package->name,
             'price'         => $package->price,
-            'quantity'      => 1,
+            'quantity'      => $request->get('quantity'),
             'attributes'    => [
                 'package'=> $package->only(['image', 'short_description']),
             ]

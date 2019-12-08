@@ -76,7 +76,7 @@
                                             {{ $package->short_description }}
                                         </td>
                                         <td>
-                                            RM {{ $package->price }}
+                                            RM {{ $package->price }} / PAX
                                         </td>
                                         <td>
                                             {{ $package->created_at->format('F d, Y') }}

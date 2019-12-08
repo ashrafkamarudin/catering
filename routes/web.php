@@ -12,8 +12,6 @@
 */
 
 Route::get('/', 'HomeController@index');
-
-Route::get('/test', 'CartController@test');
 Route::get('/pay', 'PaymentController@makePayment');
 Auth::routes();
 
@@ -22,6 +20,9 @@ Route::get('/package', 'Manage\PackageController@all')->name('package:all');
 
 // Manage
 require base_path('routes/includes/manage/manage.php');
+
+// Package
+require base_path('routes/includes/package.php');
 
 // Order
 require base_path('routes/includes/order.php');

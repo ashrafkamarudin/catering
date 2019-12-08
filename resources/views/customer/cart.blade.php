@@ -9,7 +9,7 @@
         <tr >
         <th scope="col" class="border" style="text-align:center">No.</th>
         <th scope="col" class="border" style="text-align:center">Name</th>
-        <th scope="col" class="border" style="text-align:center" width="13%">Quantity</th>
+        <th scope="col" class="border" style="text-align:center" width="15%">Quantity</th>
         <th scope="col" class="border" style="text-align:right">Price</th>
         </tr>
     </thead>
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </td>
-                <td class="border-bottom" align="right">RM {{ $item->price }}</td>
+                <td class="border-bottom" align="right">RM {{ $item->price }} / PAX</td>
             </tr>
             
         @endforeach
@@ -54,7 +54,7 @@
             <div class="card">
                 <h5 class="card-header">Event Details</h5>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('order:checkout') }}" id="checkout">
+                    <form method="POST" action="{{ route('order:create') }}" id="checkout">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -139,7 +139,7 @@
                             <a href="{{ route('order:clear') }}" class="btn btn-danger btn-block">Clear Cart</a>
                         </div>
                         <div class="col-lg-6">
-                                <button type="submit" form="checkout" class="btn btn-success btn-block">Checkout</button>
+                            <button type="submit" form="checkout" class="btn btn-success btn-block">Checkout</button>
                         </div>
                     </div>
                 </div>
