@@ -85,11 +85,12 @@
                                     @foreach (json_decode($sale->items) as $item)
                                         <tr>
                                             <td>
-                                                {{ $item['name'] }}<br>
-                                                {{ $item->description }}
+                                                {{ $item->custom->name }}<br>
+                                                {{ $item->custom->description }}
                                             </td>
                                             <td>{{ $item->quantity }}</td>
-                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->amount }}</td>
+                                            <td>{{ $item->amount }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
