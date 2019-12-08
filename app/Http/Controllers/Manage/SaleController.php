@@ -20,4 +20,11 @@ class SaleController extends Controller
         return view('manage.sales.index')
                 ->withSales($sales);
     }
+
+    public function receipt(sale $sale)
+    {
+        # code...
+        return view('manage.sales.receipt')
+                ->withSale($sale);;
+    }
 }

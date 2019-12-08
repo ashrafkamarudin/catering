@@ -47,6 +47,7 @@ Route::group([
         // Sale
         Route::group(['prefix' => 'sale', 'as' => 'sale:'], function() {
             Route::get('index', 'SaleController@index')->name('index');
+            Route::get('receipt/{sale}', 'SaleController@receipt')->name('receipt');
         });
     });
     

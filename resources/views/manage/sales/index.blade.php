@@ -84,7 +84,7 @@
                                             {{ $sale->paid_at->format('F d, Y - h:i a') }}
                                         </td>
                                         <td class="text-right">
-                                            <a href="{{ route('manage:package:show', $sale->id) }}"  class="btn btn-primary btn-round">view</a>
+                                            <a href="{{ route('manage:sales:receipt', $sale->id) }}">Receipt</a>
                                         </td>
                                     </tr>
                                 @endforeach
